@@ -3,6 +3,8 @@ import math
 from gamehandler import GameHandler
 from sight_handler import SightHandler
 from unit import Unit
+from obstacles import SmallWall
+
 from player import Player
 
 pygame.init()
@@ -17,7 +19,7 @@ sight_handler = SightHandler()
 #player_1 = Player("johan")
 game_handler.add_game_object(Unit([100, 100], pygame.Rect((100, 100), (40, 40)), 1, 100))
 game_handler.add_game_object(Unit([400, 150], pygame.Rect((400, 150), (40, 40)), 1, 100))
-
+game_handler.add_game_object(SmallWall((500, 500)))
 
 running = True
 while running:
@@ -25,7 +27,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     #player_1.update()
-    game_handler.game_objects[0].move(3, math.radians(90)) #todo this is a place holder so that I can test
+    game_handler.game_objects[0].move(3, 90) #todo this is a place holder so that I can test
     game_handler.game_objects[0].unit_update()
     # Fill the background with white
     screen.fill((255, 255, 255))
