@@ -17,7 +17,8 @@ game_handler = GameHandler()
 #player_1 = Player("johan")
 game_handler.add_game_object(Unit([100, 100], pygame.Rect((100, 100), (40, 40)), 1, 100))
 game_handler.add_game_object(Unit([400, 200], pygame.Rect((400, 200), (40, 40)), 1, 100))
-game_handler.add_game_object(SmallWall((400, 150)))
+game_handler.add_game_object(SmallWall((400, 160)))
+game_handler.add_game_object(SmallWall((800, 100)))
 
 running = True
 while running:
@@ -28,8 +29,7 @@ while running:
     #player_1.update()
     game_handler.game_objects[0].move(3, 90) #todo this is a place holder so that I can test
     game_handler.update(screen)
-    game_handler.game_objects[0].unit_update()
-    # Fill the background with white
+    #game_handler.game_objects[0].unit_update() #todo turned off, this is json output
     game_handler.draw_game_objects(screen)
     pygame.display.flip()
     clock.tick(60)
