@@ -1,8 +1,10 @@
 import pygame
+from sightHandler import SightHandler
 
 class GameHandler(object):
     def __init__(self):
         self.game_objects = []
+        self.sight_handler = SightHandler()
         pass
 
     def add_game_object(self, game_object):
@@ -11,9 +13,12 @@ class GameHandler(object):
     def remove_game_objects(self, game_object):
         pass
 
+    def update(self, surface):
+        self.sight_handler.update_eyesight(self.game_objects, surface)
+
     def draw_game_objects(self, surface):
         for unit in self.game_objects:
             unit.update()
             pygame.draw.rect(surface, unit.color, unit.rect)
             if unit.type == "unit":
-                pygame.draw.circle(surface, unit.color, unit.rect.center, 100, width=1)
+                pygame.draw.circle(surface, unit.color, unit.rect.center, 200, width=1)
