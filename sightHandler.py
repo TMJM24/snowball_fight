@@ -1,5 +1,4 @@
-import math
-
+from calc import calculate_distance
 import pygame
 
 EYE_SIGHT_DISTANCE = 200
@@ -33,7 +32,3 @@ class SightHandler(object):
 
 
 #@numba.njit()
-def calculate_distance(obj1, obj2):
-    x_difference = obj1.rect.centerx - obj2.rect.centerx
-    y_difference = obj1.rect.centery - obj2.rect.centery
-    return math.sqrt(((x_difference * x_difference) + (y_difference * y_difference)))

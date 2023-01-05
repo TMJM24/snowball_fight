@@ -15,9 +15,8 @@ game_handler = GameHandler()
 
 
 #player_1 = Player("johan")
-game_handler.add_game_object(Unit([100, 100], pygame.Rect((100, 100), (40, 40)), 1, 100))
-game_handler.add_game_object(Unit([400, 200], pygame.Rect((400, 200), (40, 40)), 1, 100))
-game_handler.add_game_object(SmallWall((400, 160)))
+game_handler.add_game_object(Unit(pygame.Rect((100, 100), (40, 40)), 1, 100))
+game_handler.add_game_object(Unit(pygame.Rect((400, 200), (40, 40)), 1, 100))
 game_handler.add_game_object(SmallWall((800, 100)))
 
 running = True

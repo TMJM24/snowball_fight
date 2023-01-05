@@ -5,11 +5,11 @@ class CollisionHandler(object):
     def calculate_collisions(self, units):
         for unit in units:
             if unit.type == "unit":
+                unit.remove_collision()
                 for other_unit in units:
-                    collision_objects = unit.rect.colliderect(other_unit)
-                if collision_objects != 0:
-                    unit.add_collision(collision_objects)
-                    print("BOTS")
-                else:
-                    unit.remove_collision()
+                    if unit == other_unit:
+                        pass
+                    elif unit.rect.colliderect(other_unit):
+                        unit.add_collision(other_unit)
+                        print("BOTS")
 

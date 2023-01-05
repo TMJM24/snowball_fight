@@ -6,8 +6,8 @@ from game_object import game_obj_move
 import math
 
 class Unit(game_obj_move):
-    def __init__(self, pos, rect, draw_layer, dir):
-        super().__init__(pos, rect, draw_layer, dir)
+    def __init__(self, rect, draw_layer, dir):
+        super().__init__(rect, draw_layer, dir)
         self.angle = 90
         self.eye_sight = []
         self.hearing = []
