@@ -1,6 +1,6 @@
 from pygame import Rect
 import math
-from calc import calculate_distance
+from calc import *
 
 
 class game_obj(object):
@@ -18,16 +18,18 @@ class game_obj_move(game_obj):
         self.collision_list = []
 
     def move(self, angle, speed):
+        may_move = True
         angle = math.radians(angle)
         step = [(math.sin(angle)) * speed, (math.cos(angle)) * speed]
         if self.collision_list:
-        #todo Check if next position is feasable. If so, go there. If not: speed = 0
-            nextpos = [ self.rect.x + step[0], self.rect.y + step[1]]
+            nextpos = [ self.rect.centerx + step[0], self.rect.centery + step[1]]
             for col in self.collision_list:
-                pass
-                #cur_dist = calculate_distance(col.rect.center, self.rect.center)
+                cur_dist = calculate_distance_rect(col, self)
+                new_dist = calculate_distance(col.rect.center, nextpos)
+                if new_dist < cur_dist:
+                    may_move = False
 
-        else:
+        if may_move:
             self.rect.move_ip(step[0], step[1])
 
     def add_collision(self, unit):

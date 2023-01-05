@@ -1,4 +1,4 @@
-from calc import calculate_distance
+from calc import calculate_distance_rect
 import pygame
 
 EYE_SIGHT_DISTANCE = 200
@@ -12,7 +12,7 @@ class SightHandler(object):
             seen = []
             if unit.type == "unit":
                 for other_unit in units:
-                    distance_unit_other_unit = calculate_distance(unit, other_unit)
+                    distance_unit_other_unit = calculate_distance_rect(unit, other_unit)
                     if distance_unit_other_unit < EYE_SIGHT_DISTANCE and unit != other_unit:
                         line = (unit.rect.center, other_unit.rect.center)
                         if self.check_if_sight_is_blocked(line, units):
