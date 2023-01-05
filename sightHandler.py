@@ -1,7 +1,9 @@
-from calc import calculate_distance_rect
+from calc import calculate_distance_rect, calculate_angle
 import pygame
+import math
 
 EYE_SIGHT_DISTANCE = 200
+DEGREES = 180
 
 class SightHandler(object):
     def __init__(self):
@@ -14,20 +16,29 @@ class SightHandler(object):
                 for other_unit in units:
                     distance_unit_other_unit = calculate_distance_rect(unit, other_unit)
                     if distance_unit_other_unit < EYE_SIGHT_DISTANCE and unit != other_unit:
+
                         line = (unit.rect.center, other_unit.rect.center)
-                        if self.check_if_sight_is_blocked(line, units):
-                            seen.append([other_unit.type, other_unit.rect.centerx, other_unit.rect.centery])             #todo add type what you see
-                            pygame.draw.line(screen, (0, 0, 0), unit.rect.center, other_unit.rect.center)
+                        if self.check_if_sight_is_blocked(line, units, unit, other_unit):
+
+                            angle = math.radians(unit.angle)
+                            right_in_front = [(math.sin(angle)) * EYE_SIGHT_DISTANCE + unit.rect.centerx,
+                                              (math.cos(angle)) * EYE_SIGHT_DISTANCE + unit.rect.centery]
+                            angle = calculate_angle(unit.rect.center, right_in_front, other_unit.rect.center)
+                            print(f"angle is {angle}")
+                            if angle > 0:
+                                seen.append([other_unit.type, other_unit.rect.centerx, other_unit.rect.centery])             #todo add type what you see
+                                pygame.draw.line(screen, (0, 0, 0), unit.rect.center, other_unit.rect.center)
                 unit.update_eye_sight(seen)
 
             #pick the front 120 degree
             #find if an unit is in here
             #if so, add it to the unit his list.
-    def check_if_sight_is_blocked(self, line, units):
+    def check_if_sight_is_blocked(self, line, units, unit1, unit2):
         for unit in units:
-            if unit.type == "wall":
-                if unit.rect.clipline(line):
-                    return False
+            if unit == unit1 or unit == unit2:
+                pass
+            elif unit.rect.clipline(line):
+                return False
         return True
 
 

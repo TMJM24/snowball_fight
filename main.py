@@ -18,6 +18,8 @@ game_handler = GameHandler()
 game_handler.add_game_object(Unit(pygame.Rect((100, 100), (40, 40)), 1, 100))
 game_handler.add_game_object(Unit(pygame.Rect((400, 200), (40, 40)), 1, 100))
 game_handler.add_game_object(SmallWall((800, 100)))
+game_handler.add_game_object(SmallWall((400, 200)))
+#game_handler.game_objects[1].angle = 270
 
 running = True
 while running:

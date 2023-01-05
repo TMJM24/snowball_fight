@@ -11,5 +11,3 @@ class CollisionHandler(object):
                         pass
                     elif unit.rect.colliderect(other_unit):
                         unit.add_collision(other_unit)
-                        print("BOTS")
-
