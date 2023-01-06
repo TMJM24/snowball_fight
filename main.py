@@ -36,6 +36,7 @@ while running:
     game_handler.update(screen)
     #game_handler.game_objects[0].unit_update() #todo turned off, this is json output example
     game_handler.draw_game_objects(screen)
+    screen.blit(game_handler.game_objects[1].text_debug, dest=(500, 500))
     pygame.display.flip()
     clock.tick(60)
 

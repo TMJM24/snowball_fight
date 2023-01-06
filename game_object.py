@@ -11,13 +11,13 @@ class game_obj(object):
         self.type = ""
 
 class game_obj_move(game_obj):
-    def __init__(self, rect: Rect, draw_layer, dir: int):
+    def __init__(self, rect: Rect, draw_layer, angle: int):
         super().__init__(rect, draw_layer)
-        self.dir = dir
+        self.angle = angle
         self.solid = True
         self.collision_list = []
 
-    def move(self, angle, speed):
+    def move(self, angle: int, speed: int):
         may_move = True
         angle = math.radians(angle)
         step = [(math.sin(angle)) * speed, (math.cos(angle)) * speed]

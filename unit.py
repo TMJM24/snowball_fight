@@ -5,10 +5,10 @@ from game_object import game_obj_move
 import math
 
 class Unit(game_obj_move):
-    def __init__(self, pos, dir, draw_layer=1):
+    def __init__(self, pos, angle, draw_layer=1):
         rect = Rect(pos, (50, 50))
-        super().__init__(rect, draw_layer, dir)
-        self.angle = 90
+        super().__init__(rect, draw_layer, angle)
+        self.speed = 0
         self.eye_sight = []
         self.hearing = []
         self.max_speed = 6 #todo magic value
@@ -23,12 +23,17 @@ class Unit(game_obj_move):
             speed = self.max_speed
         if speed < -3:                      #todo magic value
             speed = -3
+        self.speed = speed
         if angle > 3:
             angle = 3
         elif angle < -3:
             angle = -3
         self.angle += angle
-        super().move(self.angle, speed)
+        if self.angle >= 360:
+            self.angle -= 360
+        elif self.angle < 0:
+            self.angle += 360
+        super().move(self.angle, self.speed)
 
     def update(self):
         self.can_throw = self.can_throw_snowball()
