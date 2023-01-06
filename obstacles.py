@@ -5,7 +5,7 @@ from pygame import Rect
 
 
 class game_obstacle(game_obj):
-    def __init__(self, rect: Rect, draw_layer):
+    def __init__(self, rect: Rect, draw_layer: int):
         super().__init__(rect, draw_layer)
         self.solid = True
         self.color = (0, 0, 255)

@@ -1,4 +1,5 @@
 from calc import calculate_distance_rect, calculate_angle
+from game_object import game_obj
 import pygame
 import math
 
@@ -9,7 +10,7 @@ class SightHandler(object):
     def __init__(self):
         pass
 
-    def update_eyesight(self, units, screen): #todo fix to 120 degrees instead of 360
+    def update_eyesight(self, units: list, screen: pygame.Surface): #todo fix to 120 degrees instead of 360
         for unit in units:
             seen = []
             if unit.type == "unit":
@@ -24,7 +25,7 @@ class SightHandler(object):
                             right_in_front = [(math.sin(angle)) * EYE_SIGHT_DISTANCE + unit.rect.centerx,
                                               (math.cos(angle)) * EYE_SIGHT_DISTANCE + unit.rect.centery]
                             angle = calculate_angle(unit.rect.center, right_in_front, other_unit.rect.center)
-                            print(f"angle is {angle}")
+                            #print(f"angle is {angle}")
                             if angle > 0:
                                 seen.append([other_unit.type, other_unit.rect.centerx, other_unit.rect.centery])             #todo add type what you see
                                 pygame.draw.line(screen, (0, 0, 0), unit.rect.center, other_unit.rect.center)
@@ -33,7 +34,8 @@ class SightHandler(object):
             #pick the front 120 degree
             #find if an unit is in here
             #if so, add it to the unit his list.
-    def check_if_sight_is_blocked(self, line, units, unit1, unit2):
+    def check_if_sight_is_blocked(self, line: tuple, units: list, unit1: game_obj, unit2: game_obj) ->bool:
+
         for unit in units:
             if unit == unit1 or unit == unit2:
                 pass

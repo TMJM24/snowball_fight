@@ -1,12 +1,12 @@
 import json
-from enum import Enum
 import time
-
+from pygame import Rect
 from game_object import game_obj_move
 import math
 
 class Unit(game_obj_move):
-    def __init__(self, rect, draw_layer, dir):
+    def __init__(self, pos, dir, draw_layer=1):
+        rect = Rect(pos, (50, 50))
         super().__init__(rect, draw_layer, dir)
         self.angle = 90
         self.eye_sight = []
@@ -19,25 +19,22 @@ class Unit(game_obj_move):
 
     def move(self, speed: float, angle: int):
         """moves object."""
-        if abs(speed) > self.max_speed:
+        if speed > self.max_speed:
             speed = self.max_speed
-        if speed < 0:
-            speed = 0
-        if angle != self.angle:
-            if angle -3 < self.angle < angle +3:
-                #todo with 3 degrees at 60 fps, we have 2 seconds for a full round. write this
-                pass
-
-        super().move(angle, speed)
-
-    def change_angle(self, angle: int):
-        pass
+        if speed < -3:                      #todo magic value
+            speed = -3
+        if angle > 3:
+            angle = 3
+        elif angle < -3:
+            angle = -3
+        self.angle += angle
+        super().move(self.angle, speed)
 
     def update(self):
         self.can_throw = self.can_throw_snowball()
         pass
 
-    def can_throw_snowball(self):
+    def can_throw_snowball(self) ->bool:
         if not self.can_throw:
             time_now = int(time.time())
             if time_now - self.can_throw_timer > 2:  #todo every 2 seconds, magic value
@@ -47,7 +44,7 @@ class Unit(game_obj_move):
         else:
             return True
 
-    def update_eye_sight(self, seen_units):
+    def update_eye_sight(self, seen_units: list):
         self.eye_sight = seen_units
 
     def unit_update(self):
